@@ -25,10 +25,10 @@ class DeviseTokenAuthCreateMentors < ActiveRecord::Migration[5.0]
       t.string   :last_sign_in_ip
 
       ## Confirmable
-      t.string   :confirmation_token
-      t.datetime :confirmed_at
-      t.datetime :confirmation_sent_at
-      t.string   :unconfirmed_email # Only if using reconfirmable
+      # t.string   :confirmation_token
+      # t.datetime :confirmed_at
+      # t.datetime :confirmation_sent_at
+      # t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
       # t.integer  :failed_attempts, :default => 0, :null => false # Only if lock strategy is :failed_attempts
@@ -44,12 +44,21 @@ class DeviseTokenAuthCreateMentors < ActiveRecord::Migration[5.0]
       t.text :tokens
 
       t.timestamps
-    end
 
+      ## Invitable
+     t.string   :invitation_token
+     t.datetime :invitation_created_at
+     t.datetime :invitation_sent_at
+     t.datetime :invitation_accepted_at
+     t.integer  :invitation_limit
+     t.integer  :invited_by_id
+     t.string   :invited_by_type
+    end
+    add_index :mentors, :invitation_token, :unique => true
     add_index :mentors, :email,                unique: true
     add_index :mentors, [:uid, :provider],     unique: true
     add_index :mentors, :reset_password_token, unique: true
-    add_index :mentors, :confirmation_token,   unique: true
+    # add_index :mentors, :confirmation_token,   unique: true
     # add_index :mentors, :unlock_token,       unique: true
   end
 end
