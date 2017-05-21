@@ -3,5 +3,6 @@ class Student < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable,
           :omniauthable, :invitable
+  has_many :questions
   include DeviseTokenAuth::Concerns::User
 end
