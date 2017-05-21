@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
 
-  mount_devise_token_auth_for 'Mentor', at: 'mentor-auth'
-  mount_devise_token_auth_for 'Student', at: 'student-auth'
-  mount_devise_token_auth_for 'Manager', at: 'manager-auth'
+  namespace 'mentor' do
+    mount_devise_token_auth_for 'Mentor', at: 'auth'
+  end
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  namespace 'student' do
+    mount_devise_token_auth_for 'Student', at: 'auth'
+  end
+
+  namespace 'manager' do
+    mount_devise_token_auth_for 'Manager', at: 'auth'
+  end
+# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+
+# we added 'namespace' to make sure the routes look like:
+# 'mentor/auth','student/auth','manager/auth'
