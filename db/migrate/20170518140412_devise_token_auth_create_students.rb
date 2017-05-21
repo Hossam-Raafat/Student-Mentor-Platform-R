@@ -54,11 +54,11 @@ class DeviseTokenAuthCreateStudents < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
+    add_index :students, :invitation_token, :unique => true
     add_index :students, :email,                unique: true
     add_index :students, [:uid, :provider],     unique: true
     add_index :students, :reset_password_token, unique: true
     # add_index :students, :confirmation_token,   unique: true
     # add_index :students, :unlock_token,       unique: true
-    add_index :students, :invitation_token, :unique => true
   end
 end
