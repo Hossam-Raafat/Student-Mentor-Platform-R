@@ -1,7 +1,11 @@
 class QuestionsController < ApplicationController
 
   def index
-    @questions = Question.where(status: true)
+    if student_signed_in?
+      @questions = Question.where(status: true)
+    else
+      @questions = Question.all
+    end
     respond_to do |format|
       format.json { render :json => @questions }
     end
@@ -18,16 +22,16 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     respond_to do |format|
       if @question.save
-        format.json { render :json => @question }
+        format.json { render json: @question }
       else
-        format.json { render :json => @question.errors.full_messages, :status => :bad_request }
+        format.json { render json: @question.errors.full_messages, :status => :bad_request }
       end
     end
   end
 
   def update
     @question = Question.find(params[:id])
-    if !@question.Response.status
+    if !@question.response.exists?
       respond_to do |format|
         if @question.update(question_params)
           format.json { render :json => @question }
@@ -40,7 +44,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
-    if !@question.Response.status
+    if !@question.response.exists?
       @question.destroy
       respond_to do |format|
         format.json { render :json => @question }
