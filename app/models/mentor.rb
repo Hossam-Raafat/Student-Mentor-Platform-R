@@ -4,4 +4,5 @@ class Mentor < ActiveRecord::Base
           :recoverable, :rememberable, :trackable, :validatable,
           :omniauthable, :invitable
   include DeviseTokenAuth::Concerns::User
+  has_many :response
 end
