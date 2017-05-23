@@ -1,16 +1,24 @@
 FactoryGirl.define do
   factory :question do
-    description Faker::Lorem.paragraph
-    done false
+    title Faker::Lorem.sentence
+    body Faker::Lorem.paragraph
+    language 'ruby'
+    student_id 1
   end
 
-  factory :invalid_question, class: Question do
-    description ""
-    done false
+  factory :unresolved_question, class: Question do
+    title Faker::Lorem.sentence
+    body Faker::Lorem.paragraph
+    language 'ruby'
+    student_id 1
+    status false
   end
 
-  factory :question_updated, class: Question do
-    description Faker::Lorem.paragraph
-    done true
+  factory :resolved_question, class: Question do
+     title Faker::Lorem.sentence
+    body Faker::Lorem.paragraph
+    language 'ruby'
+    student_id 1
+    status true
   end
 end
