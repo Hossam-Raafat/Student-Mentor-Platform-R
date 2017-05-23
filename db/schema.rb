@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518163308) do
+ActiveRecord::Schema.define(version: 20170522103739) do
 
   create_table "managers", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -68,6 +68,29 @@ ActiveRecord::Schema.define(version: 20170518163308) do
     t.index ["uid", "provider"], name: "index_mentors_on_uid_and_provider", unique: true
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.string   "title",                      null: false
+    t.string   "body",                       null: false
+    t.string   "language",                   null: false
+    t.string   "screenshot"
+    t.boolean  "status",     default: false
+    t.integer  "student_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["student_id"], name: "index_questions_on_student_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.string   "answer"
+    t.boolean  "status"
+    t.integer  "question_id"
+    t.integer  "mentor_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["mentor_id"], name: "index_responses_on_mentor_id"
+    t.index ["question_id"], name: "index_responses_on_question_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
     t.string   "uid",                    default: "",      null: false
@@ -98,6 +121,15 @@ ActiveRecord::Schema.define(version: 20170518163308) do
     t.index ["invitation_token"], name: "index_students_on_invitation_token", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_students_on_uid_and_provider", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "student_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["question_id"], name: "index_votes_on_question_id"
+    t.index ["student_id"], name: "index_votes_on_student_id"
   end
 
 end
