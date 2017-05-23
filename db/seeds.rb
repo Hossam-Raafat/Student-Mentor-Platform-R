@@ -7,3 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Student.create(email: 'hos@gmail.com', password: '12345678')
+Mentor.create(email: 'men@gmail.com', password: 'asdfghjk')
+Manager.create(email: 'man@gmail.com', password: 'adminadmin')
