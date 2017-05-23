@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     # " manager_invite_mentor POST     /manager/invite_mentor(.:format)           manager/managers#invite_mentor"
   end
 
+  resources :questions
   root to: redirect("http://localhost:3001")
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
