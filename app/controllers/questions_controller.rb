@@ -1,8 +1,8 @@
 class QuestionsController < ApplicationController
 
   def index
-    if student_signed_in?
-      @questions = Question.where(status: true)
+    if student_student_signed_in?
+      @questions = Question.status(true)
     else
       @questions = Question.all
     end
