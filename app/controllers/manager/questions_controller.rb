@@ -1,11 +1,9 @@
-class QuestionsController < ApplicationController
+class Manager::QuestionsController < ApplicationController
+
+  before_action :authenticate_manager
 
   def index
-    if student_student_signed_in?
-      @questions = Question.status(true)
-    else
-      @questions = Question.all
-    end
+    params[:filter] === "resolved" ? @questions = Question.resolved : @questions = Question.all
     respond_to do |format|
       format.json { render :json => @questions }
     end
@@ -55,5 +53,12 @@ class QuestionsController < ApplicationController
   private
   def question_params
     params.require(:question).permit(:title, :body, :language, :screenshot)
+  end
+
+  def authenticate_manager
+    return true if current_manager_manager
+    render json: {
+      errors: ['Authorized users only.']
+    }, status: :unauthorized
   end
 end

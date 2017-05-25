@@ -1,4 +1,4 @@
-class QuestionsController < ApplicationController
+class Mentor::QuestionsController < ApplicationController
 
   def index
     if student_student_signed_in?

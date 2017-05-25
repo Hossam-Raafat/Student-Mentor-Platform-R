@@ -7,7 +7,7 @@ class Question < ApplicationRecord
   has_many :votes
   has_one :response
 
-  scope :resolved, -> () { joins(:response).where("responses.status = true") }
+  scope :resolved, -> () { joins(:response).where("responses.status = 'true'") }
 
 
 end
