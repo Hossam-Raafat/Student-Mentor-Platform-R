@@ -5,7 +5,6 @@ class CreateQuestions < ActiveRecord::Migration[5.0]
       t.string :body, null: false
       t.string :language, null: false
       t.string :screenshot
-      t.boolean :status, default: false
       t.references :student, foreign_key: true
 
       t.timestamps

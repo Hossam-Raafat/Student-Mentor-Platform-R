@@ -1,11 +1,9 @@
 class QuestionsController < ApplicationController
 
+  before_action :authenticate_mentor
+
   def index
-    if student_student_signed_in?
-      @questions = Question.status(true)
-    else
-      @questions = Question.all
-    end
+    @questions = Question.all
     respond_to do |format|
       format.json { render :json => @questions }
     end
@@ -31,7 +29,7 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
-    if !@question.response.exists?
+    if @question.response.nil?
       respond_to do |format|
         if @question.update(question_params)
           format.json { render :json => @question }
@@ -44,7 +42,7 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
-    if !@question.response.exists?
+    if @question.response.nil?
       @question.destroy
       respond_to do |format|
         format.json { render :json => @question }
