@@ -69,14 +69,13 @@ ActiveRecord::Schema.define(version: 20170524112708) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string   "title",                      null: false
-    t.string   "body",                       null: false
-    t.string   "language",                   null: false
+    t.string   "title",      null: false
+    t.string   "body",       null: false
+    t.string   "language",   null: false
     t.string   "screenshot"
-    t.boolean  "status",     default: false
     t.integer  "student_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_questions_on_student_id"
   end
 

@@ -1,11 +1,9 @@
 class QuestionsController < ApplicationController
 
+  before_action :authenticate_mentor
+
   def index
-    if student_student_signed_in?
-      @questions = Question.status(true)
-    else
-      @questions = Question.all
-    end
+    @questions = Question.all
     respond_to do |format|
       format.json { render :json => @questions }
     end
