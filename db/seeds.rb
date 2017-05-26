@@ -9,6 +9,8 @@
 Student.create(email: 'a@student.com', password: '12345678')
 Question.create(title: 'Help!', body: 'nevermind', student_id: 1, language: 'ruby')
 Question.create(title: 'Help2!', body: 'nevermind2', student_id: 1, language: 'js')
+taha = Student.create(email: 'a@student.com', password: '12345678', program: 'Fire_up_1')
+taha.questions.create(title: 'test', body: 'body test', language: 'ruby')
 Mentor.create(email: 'a@mentor.com', password: '12345678')
 Manager.create(email: 'a@gmanager.com', password: '12345678')
 Manager.create(email: 'man@gmail.com', password: 'adminadmin')
