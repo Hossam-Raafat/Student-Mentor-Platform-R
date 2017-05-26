@@ -4,12 +4,14 @@ Rails.application.routes.draw do
     resources :questions
     mount_devise_token_auth_for 'Mentor', at: 'auth' , skip: [:invitations]
     devise_for :mentors, path:"auth", only: [:invitations], :controllers => { :invitations => 'mentor/invitations' }
+    resources :questions
   end
 
   namespace 'student' do
     resources :questions
     mount_devise_token_auth_for 'Student', at: 'auth' , skip: [:invitations]
     devise_for :students, path:"auth", only: [:invitations], :controllers => { :invitations => 'student/invitations' }
+    resources :questions
   end
 
   namespace 'manager' do

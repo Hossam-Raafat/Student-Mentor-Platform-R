@@ -1,9 +1,11 @@
 class Student::QuestionsController < ApplicationController
+
   include InvitableMethods
   before_action :authenticate_student!
 
   def index
     @questions = Question.all
+
     respond_to do |format|
       format.json { render :json => @questions }
     end
@@ -29,7 +31,9 @@ class Student::QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
+
     if @question.response.nil?
+
       respond_to do |format|
         if @question.update(question_params)
           format.json { render :json => @question }
@@ -42,6 +46,7 @@ class Student::QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
+
     if @question.response.nil?
       @question.destroy
       respond_to do |format|

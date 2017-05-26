@@ -1,10 +1,10 @@
-class QuestionsController < ApplicationController
+class Manager::QuestionsController < ApplicationController
 
   before_action :authenticate_manager
 
-
   def index
-    @questions = Question.all
+    params[:filter] === "resolved" ? @questions = Question.resolved : @questions = Question.all
+
     respond_to do |format|
       format.json { render :json => @questions }
     end
@@ -30,7 +30,9 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
+
     if @question.response.nil?
+
       respond_to do |format|
         if @question.update(question_params)
           format.json { render :json => @question }
@@ -43,7 +45,9 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question = Question.find(params[:id])
+
     if @question.response.nil?
+
       @question.destroy
       respond_to do |format|
         format.json { render :json => @question }
@@ -55,4 +59,13 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:title, :body, :language, :screenshot)
   end
+
+
+  def authenticate_manager
+    return true if current_manager_manager
+    render json: {
+      errors: ['Authorized users only.']
+    }, status: :unauthorized
+  end
+
 end

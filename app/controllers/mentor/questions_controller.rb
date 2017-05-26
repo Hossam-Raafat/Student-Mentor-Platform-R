@@ -1,4 +1,4 @@
-class QuestionsController < ApplicationController
+class Mentor::QuestionsController < ApplicationController
 
   before_action :authenticate_mentor
 
