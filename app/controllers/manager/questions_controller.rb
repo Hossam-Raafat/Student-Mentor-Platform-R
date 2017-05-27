@@ -3,8 +3,13 @@ class Manager::QuestionsController < ApplicationController
   before_action :authenticate_manager
 
   def index
-    params[:filter] === "resolved" ? @questions = Question.resolved : @questions = Question.all
-
+    if params[:filter] === "resolved" 
+      @questions = Question.resolved 
+    elsif params[:filter] === "unclaimed" 
+      @questions = Question.unclaimed
+    else
+      @questions = Question.all
+    end
     respond_to do |format|
       format.json { render :json => @questions }
     end

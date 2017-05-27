@@ -8,6 +8,7 @@ class Question < ApplicationRecord
   has_one :response
 
   scope :resolved, -> () { joins(:response).where("responses.status = 'true'") }
+  scope :unclaimed, -> { where.not(:id => Response.select(:question_id).uniq) }
 
 
 end
