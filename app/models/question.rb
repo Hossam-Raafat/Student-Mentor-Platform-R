@@ -9,6 +9,7 @@ class Question < ApplicationRecord
 
   scope :resolved, -> () { joins(:response).where("responses.status = 'true'") }
   scope :unclaimed, -> { where.not(:id => Response.select(:question_id).uniq) }
+  scope :resolvedByMentor, -> (mentor_id) {joins(response: :mentor).where("responses.mentor_id = #{mentor_id}")}
 
 
 end

@@ -7,6 +7,8 @@ class Manager::QuestionsController < ApplicationController
       @questions = Question.resolved 
     elsif params[:filter] === "unclaimed" 
       @questions = Question.unclaimed
+    elsif params[:filter] === "resolvedByMentor"
+      @questions = Question.resolvedByMentor(params[:mentor_id])
     else
       @questions = Question.all
     end

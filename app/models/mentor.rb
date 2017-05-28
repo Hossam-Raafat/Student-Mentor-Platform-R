@@ -7,4 +7,5 @@ class Mentor < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   has_many :rates
   has_many :responses
+
 end
