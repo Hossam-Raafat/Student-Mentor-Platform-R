@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   namespace 'manager' do
     resources :questions
     resources :mentors
+    resources :responses
     mount_devise_token_auth_for 'Manager', at: 'auth'
     post 'invite_student', to: 'managers#invite_student'
     post 'invite_mentor', to: 'managers#invite_mentor' # check 3.7 and 3.8 here 'http://guides.rubyonrails.org/routing.html'
