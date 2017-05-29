@@ -3,9 +3,17 @@ class Mentor::QuestionsController < ApplicationController
   before_action :authenticate_mentor
 
   def index
-    @questions = Question.all
+    if params[:filter] === "resolved"
+      @questions = Question.resolved
+    elsif params[:filter] === "unclaimed"
+      @questions = Question.unclaimed
+    else
+      @questions = Question.all.includes(:response)
+    end
     respond_to do |format|
-      format.json { render :json => @questions }
+      format.html
+      format.json { render :json => @questions, include: :response  } # TODO: use jbuilder to only send 'answer' for response
+      # render :json => @users.as_json(:only => [:first_name, :state])
     end
   end
 
@@ -17,14 +25,14 @@ class Mentor::QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params)
-    respond_to do |format|
-      if @question.save
-        format.json { render json: @question }
-      else
-        format.json { render json: @question.errors.full_messages, :status => :bad_request }
-      end
-    end
+    # @question = Question.new(question_params)
+    # respond_to do |format|
+    #   if @question.save
+    #     format.json { render json: @question }
+    #   else
+    #     format.json { render json: @question.errors.full_messages, :status => :bad_request }
+    #   end
+    # end
   end
 
   def update
