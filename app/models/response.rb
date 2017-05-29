@@ -1,4 +1,7 @@
 class Response < ApplicationRecord
+
+  # validates :answer, presence: true
+
   has_one :rate
   belongs_to :question
   belongs_to :mentor
