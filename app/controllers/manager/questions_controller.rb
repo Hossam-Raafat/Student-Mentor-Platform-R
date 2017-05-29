@@ -3,10 +3,18 @@ class Manager::QuestionsController < ApplicationController
   before_action :authenticate_manager
 
   def index
-    params[:filter] === "resolved" ? @questions = Question.resolved : @questions = Question.all
-
+    if params[:filter] === "resolved" 
+      @questions = Question.resolved 
+    elsif params[:filter] === "unclaimed" 
+      @questions = Question.unclaimed
+    elsif params[:filter] === "resolvedByMentor"
+      @questions = Question.resolvedByMentor(params[:mentor_id])
+    else
+      @questions = Question.all.includes(:response)
+    end
     respond_to do |format|
-      format.json { render :json => @questions }
+      format.json { render :json => @questions, include: :response  } # TODO: use jbuilder to only send 'answer' for response
+      # render :json => @users.as_json(:only => [:first_name, :state])
     end
   end
 

@@ -1,30 +1,34 @@
 class Student::QuestionsController < ApplicationController
 
-  include InvitableMethods
-  before_action :authenticate_student!
+  before_action :authenticate_student
 
   def index
-    @questions = Question.all
+
+   if params[:filter] == "resolved"
+    @questions = Question.resolved
+  else
+    @questions = current_student_student.questions
+  end
 
     respond_to do |format|
-      format.json { render :json => @questions }
+      format.json { render json: @questions }
     end
   end
 
   def show
     @question = Question.find(params[:id])
     respond_to do |format|
-      format.json { render :json => @question }
+      format.json { render json: @question }
     end
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = current_student_student.questions.new(question_params)
     respond_to do |format|
       if @question.save
         format.json { render json: @question }
       else
-        format.json { render json: @question.errors.full_messages, :status => :bad_request }
+        format.json { render json: @question.errors.full_messages, status: :bad_request }
       end
     end
   end
@@ -36,10 +40,14 @@ class Student::QuestionsController < ApplicationController
 
       respond_to do |format|
         if @question.update(question_params)
-          format.json { render :json => @question }
+          format.json { render json: @question }
         else
-          format.json { render:json => @question.errors.full_messages, :status => :bad_request }
+          format.json { render json: @question.errors.full_messages, status: :bad_request }
         end
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @question.errors.full_messages, status: :bad_request  }
       end
     end
   end
@@ -50,7 +58,11 @@ class Student::QuestionsController < ApplicationController
     if @question.response.nil?
       @question.destroy
       respond_to do |format|
-        format.json { render :json => @question }
+        format.json { render json: @question }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @question.errors.full_messages, status: :bad_request  }
       end
     end
   end
@@ -58,5 +70,12 @@ class Student::QuestionsController < ApplicationController
   private
   def question_params
     params.require(:question).permit(:title, :body, :language, :screenshot)
+  end
+
+  def authenticate_student
+    return true if current_student_student
+    render json: {
+      errors: ['Authorized users only.']
+    }, status: :unauthorized
   end
 end
