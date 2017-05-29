@@ -1,6 +1,5 @@
 class Question < ApplicationRecord
   # scope :status, -> (status) { where status: status }
-  scope :resolved, -> () { joins(:response).where("responses.status = 'true'") }
   validates :title, presence: true
   validates :body, presence: true
   validates :language, presence: true
@@ -8,6 +7,11 @@ class Question < ApplicationRecord
   has_many :votes
   has_one :response
 
+
+  scope :resolved, -> () { joins(:response).where("responses.status = 'true'").includes(:response) }
+  scope :unclaimed, -> { where.not(:id => Response.select(:question_id).uniq).includes(:response) }
+  scope :resolvedByMentor, -> (mentor_id) {joins(response: :mentor).where("responses.mentor_id = #{mentor_id}").includes(:response)}
+  
 
 
 end
