@@ -77,8 +77,8 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.string   "language",   null: false
     t.string   "screenshot"
     t.integer  "student_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["student_id"], name: "index_questions_on_student_id", using: :btree
   end
 
@@ -89,18 +89,18 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "mentor_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["mentor_id"], name: "index_rates_on_mentor_id"
-    t.index ["response_id"], name: "index_rates_on_response_id"
-    t.index ["student_id"], name: "index_rates_on_student_id"
+    t.index ["mentor_id"], name: "index_rates_on_mentor_id", using: :btree
+    t.index ["response_id"], name: "index_rates_on_response_id", using: :btree
+    t.index ["student_id"], name: "index_rates_on_student_id", using: :btree
   end
 
   create_table "responses", force: :cascade do |t|
     t.string   "answer"
-    t.boolean  "status"
+    t.boolean  "status",      default: false
     t.integer  "question_id"
     t.integer  "mentor_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["mentor_id"], name: "index_responses_on_mentor_id", using: :btree
     t.index ["question_id"], name: "index_responses_on_question_id", using: :btree
   end
@@ -147,6 +147,9 @@ ActiveRecord::Schema.define(version: 20170524112708) do
   end
 
   add_foreign_key "questions", "students"
+  add_foreign_key "rates", "mentors"
+  add_foreign_key "rates", "responses"
+  add_foreign_key "rates", "students"
   add_foreign_key "responses", "mentors"
   add_foreign_key "responses", "questions"
   add_foreign_key "votes", "questions"

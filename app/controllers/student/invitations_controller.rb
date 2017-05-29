@@ -21,11 +21,11 @@ class Student::InvitationsController < Devise::InvitationsController
   private
 
     def invite_params
-      params.require(:student).permit(:email, :invitation_token, :provider, :skip_invitation)
+      params.require(:student).permit(:email, :invitation_token, :provider, :skip_invitation, :program)
     end
 
     def accept_invitation_params
-      params.require(:student).permit(:password, :password_confirmation, :invitation_token)
+      params.require(:student).permit(:password, :password_confirmation, :invitation_token, :name)
     end
 
     def authenticate_manager
