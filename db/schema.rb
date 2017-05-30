@@ -76,11 +76,7 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
     t.index ["student_id"], name: "index_questions_on_student_id"
-=======
-    t.index ["student_id"], name: "index_questions_on_student_id", using: :btree
->>>>>>> 262fa947354f8403ef54cc9434069f64746f5a35
   end
 
   create_table "rates", force: :cascade do |t|
@@ -90,9 +86,9 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "mentor_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["mentor_id"], name: "index_rates_on_mentor_id", using: :btree
-    t.index ["response_id"], name: "index_rates_on_response_id", using: :btree
-    t.index ["student_id"], name: "index_rates_on_student_id", using: :btree
+    t.index ["mentor_id"], name: "index_rates_on_mentor_id"
+    t.index ["response_id"], name: "index_rates_on_response_id"
+    t.index ["student_id"], name: "index_rates_on_student_id"
   end
 
   create_table "responses", force: :cascade do |t|
@@ -102,13 +98,8 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "mentor_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-<<<<<<< HEAD
     t.index ["mentor_id"], name: "index_responses_on_mentor_id"
     t.index ["question_id"], name: "index_responses_on_question_id"
-=======
-    t.index ["mentor_id"], name: "index_responses_on_mentor_id", using: :btree
-    t.index ["question_id"], name: "index_responses_on_question_id", using: :btree
->>>>>>> 262fa947354f8403ef54cc9434069f64746f5a35
   end
 
   create_table "students", force: :cascade do |t|
@@ -152,15 +143,4 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.index ["student_id"], name: "index_votes_on_student_id"
   end
 
-<<<<<<< HEAD
-=======
-  add_foreign_key "questions", "students"
-  add_foreign_key "rates", "mentors"
-  add_foreign_key "rates", "responses"
-  add_foreign_key "rates", "students"
-  add_foreign_key "responses", "mentors"
-  add_foreign_key "responses", "questions"
-  add_foreign_key "votes", "questions"
-  add_foreign_key "votes", "students"
->>>>>>> 262fa947354f8403ef54cc9434069f64746f5a35
 end

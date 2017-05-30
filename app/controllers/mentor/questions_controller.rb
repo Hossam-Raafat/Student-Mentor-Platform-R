@@ -59,6 +59,6 @@ class Mentor::QuestionsController < ApplicationController
 
   private
   def question_params
-    params.require(:question).permit(:title, :body, :language, :screenshot)
+    params.require(:question).permit(:title, :body, :language, :screenshot, :status)
   end
 end

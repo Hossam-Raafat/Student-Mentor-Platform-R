@@ -38,4 +38,3 @@ Rate.create!(star: 3, mentor_id: 2, response_id: 3, student_id: 1)
 # Response.create(answer: 'this is an another answer', status: true, mentor_id: 1, question_id: 2)
 # Response.create(answer: 'this is special for student B', status: false, mentor_id: 1, question_id: 3)
 # Response.create(answer: 'this is special for student B', status: true, mentor_id: 1, question_id: 4)
-

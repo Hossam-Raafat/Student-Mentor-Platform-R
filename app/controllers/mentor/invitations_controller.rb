@@ -1,5 +1,5 @@
 class Mentor::InvitationsController < Devise::InvitationsController
-
+  include InvitableMethods
   before_action :authenticate_manager
 
   include InvitableMethods

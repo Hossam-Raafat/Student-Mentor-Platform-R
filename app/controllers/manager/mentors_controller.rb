@@ -58,10 +58,4 @@ class Manager::MentorsController < ApplicationController
     }, status: :unauthorized
   end
 
-  def authenticate_mentor
-    return true if current_manager_manager
-    render json: {
-      errors: ['Authorized users only.']
-    }, status: :unauthorized
-  end
 end
