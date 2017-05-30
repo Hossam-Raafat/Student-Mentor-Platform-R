@@ -3,7 +3,6 @@ class Manager::ResponsesController < ApplicationController
   before_action :authenticate_manager
 
     def index
-      
       if params[:filter] === "resolvedByMentor"
         @responses = Response.resolvedByMentor(params[:mentor_id])
       else
@@ -25,5 +24,5 @@ class Manager::ResponsesController < ApplicationController
         errors: ['Authorized users only.']
       }, status: :unauthorized
     end
-  
+
 end
