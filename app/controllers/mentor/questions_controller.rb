@@ -1,6 +1,6 @@
 class Mentor::QuestionsController < ApplicationController
-
-  before_action :authenticate_mentor
+  include InvitableMethods
+  before_action :authenticate_mentor!
 
   def index
     if params[:filter] === "resolved"
@@ -11,7 +11,6 @@ class Mentor::QuestionsController < ApplicationController
       @questions = Question.all.includes(:response)
     end
     respond_to do |format|
-      format.html
       format.json { render :json => @questions, include: :response  } # TODO: use jbuilder to only send 'answer' for response
       # render :json => @users.as_json(:only => [:first_name, :state])
     end

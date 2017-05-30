@@ -27,7 +27,14 @@ class Manager::MentorsController < ApplicationController
   end
 
   def update
-   
+    @mentor = Mentor.find(params[:id])
+      respond_to do |format|
+        if @mentor.update mentor_params
+        format.json { render json: @mentor }
+      else
+        format.json { render json: @mentor.errors.full_messages, :status => :bad_request }
+      end
+    end
   end
 
   def destroy
@@ -45,6 +52,13 @@ class Manager::MentorsController < ApplicationController
 
 
   def authenticate_manager
+    return true if current_manager_manager
+    render json: {
+      errors: ['Authorized users only.']
+    }, status: :unauthorized
+  end
+
+  def authenticate_mentor
     return true if current_manager_manager
     render json: {
       errors: ['Authorized users only.']
