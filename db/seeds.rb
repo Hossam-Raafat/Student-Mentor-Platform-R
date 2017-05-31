@@ -10,7 +10,7 @@
 
 
 Student.create!(email: 'a@student.com', password: '12345678', program: 'Fire_up_1')
-Question.create!(title: 'Help!', body: 'nevermind', student_id: 1, language: 'ruby')
+Question.create!(title: 'How to use ng-hide with click', body: 'Freaking out - cant find solution online', student_id: 1, language: 'ruby')
 Question.create!(title: 'Help2!', body: 'nevermind2', student_id: 1, language: 'js')
 Question.create!(title: 'Help3!', body: 'please claim me', student_id: 1, language: 'js')
 Question.create!(title: 'Help4!', body: 'please claim me too', student_id: 1, language: 'js')

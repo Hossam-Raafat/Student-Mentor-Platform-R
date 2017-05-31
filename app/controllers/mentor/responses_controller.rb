@@ -36,6 +36,6 @@ class Mentor::ResponsesController < ApplicationController
 
   private
     def response_params
-      params.require(:response).permit(:answer, :status, :question_id)
+      params.require(:response).permit(:answer, :status, :question_id, :mentor_id)
     end
 end
