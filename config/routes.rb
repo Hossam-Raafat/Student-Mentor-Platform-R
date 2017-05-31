@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   end
 
   namespace 'student' do
-    resources :questions
+    resources :questions do
+      resources :votes, only: [:create]
+    end
     mount_devise_token_auth_for 'Student', at: 'auth' , skip: [:invitations]
     devise_for :students, path:"auth", only: [:invitations], :controllers => { :invitations => 'student/invitations' }
   end
