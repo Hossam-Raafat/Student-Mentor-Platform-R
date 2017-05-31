@@ -16,7 +16,6 @@ class Question < ApplicationRecord
       if response
         if response.status == true
           'resolved'
-          # response.status == false && questinon.response.mentor_id == mentor_id 
         else
           'claimed'
         end

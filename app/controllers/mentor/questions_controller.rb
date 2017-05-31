@@ -8,9 +8,20 @@ class Mentor::QuestionsController < ApplicationController
     # elsif params[:filter] === "unclaimed"
     #   @questions = Question.unclaimed.as_json(include: :response)
     # else
-      @questions = Question.all.includes(:response).group_by(&:status).map{|k,v| {k => v.map{|q| q.as_json(include: :response)}}}.inject(&:merge)
+      # @questions = Question.all.includes(:response).group_by(&:status).map{|k,v| {k => v.map{|q| q.as_json(include: :response)}}}.inject(&:merge)
       # @questions = Question.all.includes(:response)
     # end
+
+    all_questions = Question.all.includes(:response)
+    unclaimed_questions = Question.unclaimed
+    mentor_claimed_questions = current_mentor_mentor.claimed_questions.includes(:response)
+
+    @questions = {
+      resolved: all_questions.as_json(include: :response),
+      unclaimed: unclaimed_questions,
+      claimed: mentor_claimed_questions.as_json(include: :response)
+    }
+
     respond_to do |format|
       format.json { render :json => @questions } # TODO: use jbuilder to only send 'answer' for response
       # render :json => @users.as_json(:only => [:first_name, :state])
