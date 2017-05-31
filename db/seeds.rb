@@ -7,7 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-Student.create!(email: 'a@student.com', password: '12345678', program: 'Fire_up_1')
+Student.create!(name: 'Taha', email: 'a@student.com', password: '12345678', program: 'Fire_up_1')
+Student.create!(name: 'Hosam', email: 'b@student.com', password: '12345678', program: 'Fire_up_1')
+Student.create!(name: 'Hoda', email: 'c@student.com', password: '12345678', program: 'Fire_up_1')
+Student.create!(name: 'Joey', email: 'd@student.com', password: '12345678', program: 'Fire_up_1')
 Question.create!(title: 'Help!', body: 'nevermind', student_id: 1, language: 'ruby')
 Question.create!(title: 'Help2!', body: 'nevermind2', student_id: 1, language: 'js')
 Question.create!(title: 'Help3!', body: 'please claim me', student_id: 1, language: 'js')
