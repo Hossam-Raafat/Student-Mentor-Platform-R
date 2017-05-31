@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# Question.create!(title: 'lala', body: 'testing_status', student_id: 1, language: 'ruby')
+
 
 Student.create!(email: 'a@student.com', password: '12345678', program: 'Fire_up_1')
 Question.create!(title: 'Help!', body: 'nevermind', student_id: 1, language: 'ruby')

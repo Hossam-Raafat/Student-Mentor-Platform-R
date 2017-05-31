@@ -3,15 +3,16 @@ class Mentor::QuestionsController < ApplicationController
   before_action :authenticate_mentor!
 
   def index
-    if params[:filter] === "resolved"
-      @questions = Question.resolved
-    elsif params[:filter] === "unclaimed"
-      @questions = Question.unclaimed
-    else
-      @questions = Question.all.includes(:response)
-    end
+    # if params[:filter] === "resolved"
+    #   @questions = Question.resolved.as_json(include: :response)
+    # elsif params[:filter] === "unclaimed"
+    #   @questions = Question.unclaimed.as_json(include: :response)
+    # else
+      @questions = Question.all.includes(:response).group_by(&:status).map{|k,v| {k => v.map{|q| q.as_json(include: :response)}}}.inject(&:merge)
+      # @questions = Question.all.includes(:response)
+    # end
     respond_to do |format|
-      format.json { render :json => @questions, include: :response  } # TODO: use jbuilder to only send 'answer' for response
+      format.json { render :json => @questions } # TODO: use jbuilder to only send 'answer' for response
       # render :json => @users.as_json(:only => [:first_name, :state])
     end
   end
