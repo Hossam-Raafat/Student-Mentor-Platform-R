@@ -8,6 +8,8 @@ class Manager::QuestionsController < ApplicationController
       @questions = Question.unclaimed
     elsif params[:filter] === "resolvedByMentor"
       @questions = Question.resolvedByMentor(params[:mentor_id])
+    elsif params[:filter] === "submittedByStudent"
+      @questions = Question.submittedByStudent(params[:student_id])
     else
       @questions = Question.all.includes(:response).includes(:student)
     end
