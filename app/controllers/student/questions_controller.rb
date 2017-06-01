@@ -29,7 +29,7 @@ class Student::QuestionsController < ApplicationController
         ActionCable.server.broadcast(
           "question",
           sent_by: current_student_student.name,
-          body: @questions
+          body: @question
         )
         format.json { render json: @question }
       else
