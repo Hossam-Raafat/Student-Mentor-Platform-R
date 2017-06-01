@@ -5,13 +5,13 @@ class Student::QuestionsController < ApplicationController
   def index
 
    if params[:filter] == "resolved"
-    @questions = Question.resolved
+    @questions = Question.resolved.includes(:response).includes(:mentor)
   else
-    @questions = current_student_student.questions
+    @questions = current_student_student.questions.includes(:response).includes(:mentor)
   end
 
     respond_to do |format|
-      format.json { render json: @questions }
+      format.json { render json: @questions, include: [:response, :mentor, :student], methods: [:get_upvotes, :get_downvotes] }
     end
   end
 

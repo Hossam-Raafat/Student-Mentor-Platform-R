@@ -1,5 +1,6 @@
 class Student < ActiveRecord::Base
   # Include default devise modules.
+  acts_as_voter
   attr_reader :raw_invitation_token
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable,
@@ -10,6 +11,5 @@ class Student < ActiveRecord::Base
     message: 'Fire_up_(number)' }
   has_many :rates
   has_many :questions
-  has_many :votes
   include DeviseTokenAuth::Concerns::User
 end
