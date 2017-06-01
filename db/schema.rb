@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524112708) do
+ActiveRecord::Schema.define(version: 20170530120929) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "managers", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -31,9 +34,9 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.text     "tokens"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.index ["email"], name: "index_managers_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_managers_on_uid_and_provider", unique: true
+    t.index ["email"], name: "index_managers_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_managers_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid", "provider"], name: "index_managers_on_uid_and_provider", unique: true, using: :btree
   end
 
   create_table "mentors", force: :cascade do |t|
@@ -62,10 +65,10 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.index ["email"], name: "index_mentors_on_email", unique: true
-    t.index ["invitation_token"], name: "index_mentors_on_invitation_token", unique: true
-    t.index ["reset_password_token"], name: "index_mentors_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_mentors_on_uid_and_provider", unique: true
+    t.index ["email"], name: "index_mentors_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_mentors_on_invitation_token", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_mentors_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid", "provider"], name: "index_mentors_on_uid_and_provider", unique: true, using: :btree
   end
 
   create_table "questions", force: :cascade do |t|
@@ -76,7 +79,7 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_questions_on_student_id"
+    t.index ["student_id"], name: "index_questions_on_student_id", using: :btree
   end
 
   create_table "rates", force: :cascade do |t|
@@ -86,9 +89,9 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "mentor_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["mentor_id"], name: "index_rates_on_mentor_id"
-    t.index ["response_id"], name: "index_rates_on_response_id"
-    t.index ["student_id"], name: "index_rates_on_student_id"
+    t.index ["mentor_id"], name: "index_rates_on_mentor_id", using: :btree
+    t.index ["response_id"], name: "index_rates_on_response_id", using: :btree
+    t.index ["student_id"], name: "index_rates_on_student_id", using: :btree
   end
 
   create_table "responses", force: :cascade do |t|
@@ -98,8 +101,8 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.integer  "mentor_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.index ["mentor_id"], name: "index_responses_on_mentor_id"
-    t.index ["question_id"], name: "index_responses_on_question_id"
+    t.index ["mentor_id"], name: "index_responses_on_mentor_id", using: :btree
+    t.index ["question_id"], name: "index_responses_on_question_id", using: :btree
   end
 
   create_table "students", force: :cascade do |t|
@@ -128,19 +131,30 @@ ActiveRecord::Schema.define(version: 20170524112708) do
     t.text     "tokens"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.index ["email"], name: "index_students_on_email", unique: true
-    t.index ["invitation_token"], name: "index_students_on_invitation_token", unique: true
-    t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_students_on_uid_and_provider", unique: true
+    t.index ["email"], name: "index_students_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_students_on_invitation_token", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid", "provider"], name: "index_students_on_uid_and_provider", unique: true, using: :btree
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "question_id"
-    t.integer  "student_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["question_id"], name: "index_votes_on_question_id"
-    t.index ["student_id"], name: "index_votes_on_student_id"
+    t.string   "votable_type"
+    t.integer  "votable_id"
+    t.string   "voter_type"
+    t.integer  "voter_id"
+    t.boolean  "vote_flag"
+    t.string   "vote_scope"
+    t.integer  "vote_weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+    t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
   end
 
+  add_foreign_key "questions", "students"
+  add_foreign_key "rates", "mentors"
+  add_foreign_key "rates", "responses"
+  add_foreign_key "rates", "students"
+  add_foreign_key "responses", "mentors"
+  add_foreign_key "responses", "questions"
 end
