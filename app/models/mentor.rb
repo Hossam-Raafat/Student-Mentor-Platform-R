@@ -7,5 +7,7 @@ class Mentor < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
   has_many :rates
   has_many :responses
+  has_many :claimed_questions, -> { where(responses: { status: false }) },
+    through: :responses, source: :question
 
 end

@@ -12,6 +12,13 @@ module InvitableMethods
     }, status: :unauthorized
   end
 
+  def authenticate_mentor!
+    return if current_mentor_mentor
+    render json: {
+      errors: ['Authorized users only.']
+    }, status: :unauthorized
+  end
+
   def resource_class(m = nil)
     if m
       mapping = Devise.mappings[m]
