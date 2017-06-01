@@ -21,7 +21,7 @@ Question.create!(title: 'Scopes in Ruby', body: 'How can I use scopes to filter 
 Question.create!(title: 'factories v.s services', body: 'Please explain when should I use factories and when should I use services. What is the difference between them.', student_id: 1, language: 'js')
 
 Mentor.create!(name:'Salma', email: 'salma@almakinah.com', password: '12345678', status: true)
-Mentor.create!(name:'Wazeery', email: 'wazeery@almakinah', password: '12345678', status: false)
+Mentor.create!(name:'Wazeery', email: 'wazeery@almakinah.com', password: '12345678', status: false)
 Mentor.create!(name:'Omar', email: 'omar@almakinah.com', password: '12345678', status: true)
 Manager.create!(name:'Bahia', email: 'bahia@almakinah.com', password: '12345678')
 Manager.create!(name:'Eman', email: 'eman@almakinah.com', password: 'adminadmin')
@@ -34,7 +34,7 @@ Rate.create!(star: 5, mentor_id: 1, response_id: 1, student_id: 1)
 Rate.create!(star: 1, mentor_id: 2, response_id: 2, student_id: 1)
 Rate.create!(star: 3, mentor_id: 2, response_id: 3, student_id: 1)
 
-Vote.create!(vote_flag: true, vote_weight: 1, )
+# Vote.create!(vote_flag: true, vote_weight: 1, )
 
 
 # Student.create(email: 'a@student.com', password: '12345678', program: 'Fire_up_1')
