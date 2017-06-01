@@ -17,9 +17,9 @@ class Mentor::QuestionsController < ApplicationController
     mentor_claimed_questions = current_mentor_mentor.claimed_questions.includes(:response)
 
     @questions = {
-      resolved: all_questions.as_json(include: :response),
-      unclaimed: unclaimed_questions,
-      claimed: mentor_claimed_questions.as_json(include: :response)
+      resolved: all_questions.as_json(include: [:response, :student]),
+      unclaimed: unclaimed_questions.as_json(include: [:student]),
+      claimed: mentor_claimed_questions.as_json(include: [:response, :student])
     }
 
     respond_to do |format|
