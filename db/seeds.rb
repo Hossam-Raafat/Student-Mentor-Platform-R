@@ -19,6 +19,8 @@ Question.create!(title: 'How to use ng-hide with click', body: 'Freaking out - c
 Question.create!(title: 'Trouble installing fountain-js', body: 'I am facing a bug while trying to install fountain-js', student_id: 1, language: 'ruby')
 Question.create!(title: 'Scopes in Ruby', body: 'How can I use scopes to filter result from databases', student_id: 1, language: 'ruby')
 Question.create!(title: 'factories v.s services', body: 'Please explain when should I use factories and when should I use services. What is the difference between them.', student_id: 1, language: 'js')
+Question.create!(title: 'How to use ng-hide with click', body: 'Freaking out - cant find solution online', student_id: 3, language: 'ruby')
+
 
 Mentor.create!(name:'Salma', email: 'salma@almakinah.com', password: '12345678', status: true)
 Mentor.create!(name:'Wazeery', email: 'wazeery@almakinah.com', password: '12345678', status: false)
@@ -29,6 +31,7 @@ Manager.create!(name:'Eman', email: 'eman@almakinah.com', password: 'adminadmin'
 Response.create!(answer: 'empty', mentor_id: 1 ,status:false, question_id: 1)
 Response.create!(answer: 'empty2', mentor_id: 2 ,status:false, question_id: 3)
 Response.create!(answer: 'this is an another answer', status: true, mentor_id: 1, question_id: 2)
+Response.create!(answer: 'this is an another answer', status: true, mentor_id: 1, question_id: 5)
 
 Rate.create!(star: 5, mentor_id: 1, response_id: 1, student_id: 1)
 Rate.create!(star: 1, mentor_id: 2, response_id: 2, student_id: 1)

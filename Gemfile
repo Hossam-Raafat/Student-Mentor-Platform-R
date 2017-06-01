@@ -19,6 +19,10 @@ gem 'acts_as_votable', '~> 0.10.0'
 
 gem 'pg'
 
+gem 'carrierwave', '~> 1.0'
+
+gem "mini_magick"
+
 
 # Use Puma as the app server
 gem 'puma', '~> 3.0'

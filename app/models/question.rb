@@ -15,6 +15,8 @@ class Question < ApplicationRecord
   scope :resolvedByMentor, -> (mentor_id) {joins(response: :mentor).where("responses.mentor_id = #{mentor_id}").includes(:response).includes(:rate).includes(:student)}
   scope :submittedByStudent, -> (student_id) {joins(response: :mentor).where("questions.student_id = #{student_id}").includes(:response).includes(:rate).includes(:student)}
 
+  mount_uploader :screenshot, ScreenshotUploader
+
   def status
       if response
         if response.status == true
