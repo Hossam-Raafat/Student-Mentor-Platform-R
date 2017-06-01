@@ -18,7 +18,7 @@ class Student::QuestionsController < ApplicationController
   def show
     @question = Question.find(params[:id])
     respond_to do |format|
-      format.json { render json: @question }
+      format.json { render json: @question, include: [:response, :mentor, :student], methods: [:get_upvotes, :get_downvotes] }
     end
   end
 
