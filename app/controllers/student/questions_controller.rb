@@ -26,6 +26,11 @@ class Student::QuestionsController < ApplicationController
     @question = current_student_student.questions.new(question_params)
     respond_to do |format|
       if @question.save
+        ActionCable.server.broadcast(
+          "question",
+          sent_by: current_student_student.name,
+          body: @question
+        )
         format.json { render json: @question }
       else
         format.json { render json: @question.errors.full_messages, status: :bad_request }
