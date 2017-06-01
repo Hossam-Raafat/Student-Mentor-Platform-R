@@ -1,11 +1,10 @@
 class Manager::QuestionsController < ApplicationController
-
   before_action :authenticate_manager
 
   def index
-    if params[:filter] === "resolved" 
-      @questions = Question.resolved 
-    elsif params[:filter] === "unclaimed" 
+    if params[:filter] === "resolved"
+      @questions = Question.resolved
+    elsif params[:filter] === "unclaimed"
       @questions = Question.unclaimed
     elsif params[:filter] === "resolvedByMentor"
       @questions = Question.resolvedByMentor(params[:mentor_id])
