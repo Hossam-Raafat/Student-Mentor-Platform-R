@@ -40,6 +40,9 @@ Rails.application.configure do
   # I added this line ad instructed when I ran 'rails generate devise:install'
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }   
 
+  config.action_cable.url = "ws://localhost:3000/cable"
+
+  config.action_cable.allowed_request_origins = ['http://localhost:3001']
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
