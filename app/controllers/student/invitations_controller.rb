@@ -1,6 +1,6 @@
 class Student::InvitationsController < Devise::InvitationsController
 
-  before_action :authenticate_manager
+  before_action :authenticate_manager, :only => [:create]
 
   include InvitableMethods
   def create
