@@ -12,7 +12,7 @@ class Mentor::QuestionsController < ApplicationController
       # @questions = Question.all.includes(:response)
     # end
 
-    all_questions = Question.all.includes(:response)
+    all_questions = Question.all.order(created_at: :desc).includes(:response)
     unclaimed_questions = Question.unclaimed
     mentor_claimed_questions = current_mentor_mentor.claimed_questions.includes(:response)
 
