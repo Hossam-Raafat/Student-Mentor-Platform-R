@@ -1,9 +1,9 @@
 <p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", url: 'http://localhost:3001') %></p>
+<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", url: Rails.application.config.client) %></p>
 <!-- we changed the url from 'url: root_url' to our angular localhost -->
 
-<p><%= link_to t("devise.mailer.invitation_instructions.accept"), "http://localhost:3001/mentor/accept/#{@token}"  %></p>
+<p><%= link_to t("devise.mailer.invitation_instructions.accept"), "#{Rails.application.config.client}/mentor/accept/#{@token}"  %></p>
 <!-- we also edited this line so it goeas to the angular localhost --> 
 
 <% if @resource.invitation_due_at %>
