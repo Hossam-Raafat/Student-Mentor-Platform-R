@@ -75,4 +75,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.web_socket_server_url = "wss://mentor-scheduling.herokuapp.com/cable" 
+  config.action_cable.url = "ws://mentor-scheduling.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['http://mentor-scheduling.netlify.com']
 end
