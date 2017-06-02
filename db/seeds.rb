@@ -10,6 +10,7 @@
 
 
 
+
 Student.create!(name: 'Hoda', email: 'Hoda@student.com', password: '12345678', program: 'Fire_up_1')
 Student.create!(name: 'Taha', email: 'taha@student.com', password: '12345678', program: 'Fire_up_1')
 Student.create!(name: 'Hosam', email: 'hossam@student.com', password: '12345678', program: 'Fire_up_1')
